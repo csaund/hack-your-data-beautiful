@@ -13,6 +13,8 @@ Please take a look at these resources in your own time!
 
 ## Setup
 
+First things first, we have to set our *Working Directory* to the place our file is. In RStudio we do this by hitting 'Session > Set Working Directory > Source File Location'. This lets us interact with other files that are outside of our current script (and keeps our project nice and tidy).
+
 In RStudio in Rmd (spoken: "R Markdown") files, you can run either one section of code by hitting 'Run > Run current chunk' or you can run every section of code by hitting 'Run > Run all'.
 
 A Chunk of code is defined as everything within the three ` marks, like this
@@ -34,6 +36,7 @@ First we load in libraries. These are things that we've either already installed
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(ggplot2)
+library(cowsay)
 ```
 
 ## Using the Console, Variables, and Data Types
@@ -78,5 +81,25 @@ second_value <- first_vector[2]
 This creates a new variable with the value of the second item in `first_vector`.
 
 ### Functions
+We can also take advantage of everything we loaded into the library by using *functions*.
 
+For instance, since we loaded in the `cowsay` library, we can write
+```{r}
+say("This is using a function!")
+```
 
+When we run this line we see it produce output. This is because we *called* the function `say`
+Calling a function is as easy as that! Here's the basic anatomy of a function call:
+```
+function_name(argument1, argument2, ...)
+```
+where the arguments are the *parameters* of the function -- the things the function needs to do its thing. 
+
+### Loading Data
+We can also interact with files outside of our R script, like loading data. 
+```{r}
+survey_data <- read.csv('HYDB_survey_data.csv')
+```
+Now when we click on `survey_data` in our environment section, we can see all the beautiful data we've imported! 
+
+From this we can do all sorts of analysis on our data
