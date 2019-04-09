@@ -31,12 +31,18 @@ A Chunk of code is defined as everything within the three ` marks, like this
 
 You'll learn much more about formatting Rmd files, 
 
-First we load in libraries. These are things that we've either already installed, or come installed in R or RStudio. Functionally, this is just creating an environment with a bunch of code that someone else has written for us. 
+First we load in libraries (also known as packages). These are things that we've either already installed, or come installed in R or RStudio. Functionally, this is just creating an environment with a bunch of code that someone else has written for us. 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
+library(tidytext)
 library(ggplot2)
 library(cowsay)
+
+# When we do things that require "random" or stochastic functions, we set the seed first for 
+# reproducibility. This way someone else can run our code and get the same result, even though
+# the function uses "randomness"
+set.seed(1234)
 ```
 
 ## Using the Console, Variables, and Data Types
@@ -102,4 +108,23 @@ survey_data <- read.csv('HYDB_survey_data.csv')
 ```
 Now when we click on `survey_data` in our environment section, we can see all the beautiful data we've imported! 
 
+
+We can manipulate our data in a variety of ways. For example, the column names are pretty ugly right now. Let's make them something we can work with. 
+```{r}
+# change column names
+new_colnames <- c("timestamp", "area_of_study", "elaboration", 
+                  "coding_experience", "nervousness", "confidence",
+                  "workshop_goals", "comments")
+colnames(survey_data) <- new_colnames
+```
+Boom.
+
 From this we can do all sorts of analysis on our data
+```{r}
+# get values and count from values 
+pie<- ggplot(survey_data, aes(x=factor(1), fill=area_of_study)) +
+  geom_bar(width = 1) +
+  coord_polar("y")
+pie
+```
+
